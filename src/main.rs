@@ -8,13 +8,13 @@ fn main() {
 }
 
 struct MyEguiApp {
-    pub value:usize,
+    pub value:bool,
 }
 
 impl Default for MyEguiApp {
     fn default() -> MyEguiApp {
         MyEguiApp {
-            value: 0,
+            value: true,
         }
     }
 }
@@ -32,19 +32,16 @@ impl eframe::App for MyEguiApp {
 
             ui.spacing();
 
-            let msg = format!("click {} times.", self.value);
+            let msg = format!("checked = {}.", self.value);
             let label_text = egui::RichText::new(msg).size(32.0);
             let label = egui::Label::new(label_text);
             ui.add(label);
 
             ui.separator();
 
-            let btn_txt = egui::RichText::new("Click!").font(egui::FontId::proportional(24.0));
-            let btn = egui::Button::new(btn_txt);
-            let resp = ui.add_sized(egui::Vec2 {x:150.0, y:40.0}, btn);
-            if resp.clicked() {
-                self.value += 1;
-            }
+            let check_text = egui::RichText::new("Checkbox").size(24.0);
+            let check = egui::Checkbox::new(&mut self.value, check_text);
+            let _resp = ui.add(check);
         });
     }
 }
